@@ -1,7 +1,7 @@
 # My App Name
-###### Demo app with basic REST API
+Demo app with basic REST API
 
-#REST API
+# REST API
 List of basic routes :
 
 **Route**		| **HTTP** | **Description**
@@ -26,7 +26,7 @@ Route | HTTP | Description
 /api/users?name="{na}" | GET | Get {na} match in users
 
 
-#USAGE
+# USAGE
 With only npm:
 > npm install
 > npm start
