@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const getAll = (req, res) =>{
 	User.findAll().then(userData =>{
-		res.send(userData)
+		res.send(req.headers)
 	})
 	.catch(err => {
 		res.send(err)
@@ -22,15 +22,24 @@ const getById = (req, res) =>{
 }
 
 const update = (req, res) =>{
-	User.update({
-		name : req.body.name,
-		email: req.body.email,
-	},{
-		where : {
-			id : req.params.id
-		}
-	}).then(() => {
-		res.status(200).send('Ok')
+	encoding(req.body.password).then(password => {
+		User.update({
+			  name : req.body.name,
+				email: req.body.email,
+				createdAt : new Date(),
+				updatedAt : new Date(),
+				username : req.body.username,
+				password : password
+		},{
+			where : {
+				id : req.params.id
+			}
+		}).then(() => {
+			res.status(200).send('Ok')
+		})
+	})
+	.catch(err => {
+		res.status(404).send('error')
 	})
 }
 
@@ -73,7 +82,7 @@ const signin = (req, res) =>{
 			if(user){
 				jwt.sign({name: userData.name, email: userData.email, 
 					username:userData.username, isAdmin:userData.isAdmin, isLogin:true}, 
-					process.env.SALT_TOKEN,(err, token)=>{
+					process.env.SALT_TOKEN, { expiresIn: '1h' },(err, token)=>{
 						res.status(200).send({
 							message: 'Login Success',
 							token: token
