@@ -8,7 +8,6 @@ const api = require('./routers/users')
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.set('view engine', 'ejs');
 
 app.use(morgan('dev'));
 app.use('/api', api) 

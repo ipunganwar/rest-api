@@ -19,6 +19,7 @@ module.exports = {
         createdAt : new Date(),
         updatedAt : new Date(),
         username : 'tes',
+        password : '$2a$10$tAxVVMT55vfD.ZcA8rG.3OSxcvyzQSmdyErYiRbzoW68kU6MnLHuO',
         isAdmin : true
       },
       {
@@ -27,6 +28,7 @@ module.exports = {
         createdAt : new Date(),
         updatedAt : new Date(),
         username : 'oke',
+        password : '$2a$10$tAxVVMT55vfD.ZcA8rG.3OSxcvyzQSmdyErYiRbzoW68kU6MnLHuO',
         isAdmin : false
       },
       ], {});
