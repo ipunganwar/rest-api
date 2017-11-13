@@ -78,7 +78,7 @@ const signin = (req, res) =>{
 	})
 	.then(userData => {
 		decoding(req.body.password, userData.password).then(user =>{
-			console.log(user)
+			
 			if(user){
 				jwt.sign({name: userData.name, email: userData.email, 
 					username:userData.username, isAdmin:userData.isAdmin, isLogin:true}, 
@@ -92,7 +92,9 @@ const signin = (req, res) =>{
 			else{
 				res.status(404).send('username or password invalid')
 			}
-		})
+		}).catch(err =>{
+			res.send(err)
+		})	
 	})
 }
 
