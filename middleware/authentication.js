@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const isLogin = (req, res, next) =>{
-	jwt.verify(req.headers.authorization, '*&%&&%*&!!@##$', (err, result)=>{
+	jwt.verify(req.headers.authorization, process.env.SALT_TOKEN, (err, result)=>{
 		if(err){
 			res.send(err)
 		}

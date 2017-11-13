@@ -2,20 +2,8 @@ const User = require('../models').User
 const jwt = require('jsonwebtoken')
 const encoding = require('../helpers/encoding')
 const decoding = require('../helpers/decoding')
+require('dotenv').config()
 
-//pake helpers
-// const getAll = (req, res) =>{
-// 	authorization(req.headers.authorization).then(auth => {
-// 		User.findAll().then(userData =>{
-// 			res.send(userData)
-// 		})
-// 	})
-// 	.catch(err => {
-// 		res.send(err)
-// 	})
-// }
-
-//coba middleware
 const getAll = (req, res) =>{
 	User.findAll().then(userData =>{
 		res.send(userData)
@@ -81,10 +69,11 @@ const signin = (req, res) =>{
 	})
 	.then(userData => {
 		decoding(req.body.password, userData.password).then(user =>{
+			console.log(user)
 			if(user){
 				jwt.sign({name: userData.name, email: userData.email, 
 					username:userData.username, isAdmin:userData.isAdmin, isLogin:true}, 
-					'*&%&&%*&!!@##$',(err, token)=>{
+					process.env.SALT_TOKEN,(err, token)=>{
 						res.status(200).send({
 							message: 'Login Success',
 							token: token
@@ -111,6 +100,9 @@ const insert = (req, res) => {
 	.then(() => {
 		res.status(201).send('ok')
 	})
+	.catch(err => {
+		res.send(err)
+	})
 }
 
 module.exports = {
@@ -119,6 +111,7 @@ module.exports = {
 	update,
 	destroy,
 	signup,
-	signin
+	signin,
+	insert
 }
 
