@@ -20,8 +20,9 @@ Route | HTTP | Description
 /api/users/:id | PUT | Update a user with new info
 
 List of filter routers:
+
 Route | HTTP | Description
-------|------|------------
+-------|------|------------
 /api/users?name="{name}" | GET | Get {name} match in users
 /api/users?name="{na}" | GET | Get {na} match in users
 
